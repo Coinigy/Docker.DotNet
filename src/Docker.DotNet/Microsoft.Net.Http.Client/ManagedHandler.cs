@@ -25,12 +25,14 @@ namespace Microsoft.Net.Http.Client
 
         public ManagedHandler(StreamOpener opener)
         {
-            _streamOpener = opener ?? throw new ArgumentNullException(nameof(opener));
+            if (opener == null) throw new ArgumentNullException(nameof(opener));
+           _streamOpener = opener;
         }
 
         public ManagedHandler(SocketOpener opener)
         {
-            _socketOpener = opener ?? throw new ArgumentNullException(nameof(opener));
+            if (opener == null) throw new ArgumentNullException(nameof(opener));
+            _socketOpener = opener;
         }
 
         public IWebProxy Proxy
