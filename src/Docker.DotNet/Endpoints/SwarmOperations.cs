@@ -29,7 +29,8 @@ namespace Docker.DotNet
 
         async Task<ServiceCreateResponse> ISwarmOperations.CreateServiceAsync(ServiceCreateParameters parameters)
         {
-            var data = new JsonRequestContent<ServiceCreateParameters>(parameters ?? throw new ArgumentNullException(nameof(parameters)), this._client.JsonSerializer);
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            var data = new JsonRequestContent<ServiceCreateParameters>(parameters, this._client.JsonSerializer);
             var response = await this._client.MakeRequestAsync(new[] { SwarmResponseHandler }, HttpMethod.Post, "services/create", null, RegistryAuthHeaders(parameters.RegistryAuth), data).ConfigureAwait(false);
             return this._client.JsonSerializer.DeserializeObject<ServiceCreateResponse>(response.Body);
         }
@@ -42,7 +43,8 @@ namespace Docker.DotNet
 
         async Task<string> ISwarmOperations.InitSwarmAsync(SwarmInitParameters parameters)
         {
-            var data = new JsonRequestContent<SwarmInitParameters>(parameters ?? throw new ArgumentNullException(nameof(parameters)), this._client.JsonSerializer);
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            var data = new JsonRequestContent<SwarmInitParameters>(parameters, this._client.JsonSerializer);
             var response = await this._client.MakeRequestAsync(new []{ SwarmResponseHandler }, HttpMethod.Post, "swarm/init", null, data).ConfigureAwait(false);
             return response.Body;
         }
@@ -63,7 +65,8 @@ namespace Docker.DotNet
 
         async Task ISwarmOperations.JoinSwarmAsync(SwarmJoinParameters parameters)
         {
-            var data = new JsonRequestContent<SwarmJoinParameters>(parameters ?? throw new ArgumentNullException(nameof(parameters)), this._client.JsonSerializer);
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            var data = new JsonRequestContent<SwarmJoinParameters>(parameters, this._client.JsonSerializer);
             await this._client.MakeRequestAsync(
                 new ApiResponseErrorHandlingDelegate[]
                 {
@@ -103,7 +106,8 @@ namespace Docker.DotNet
 
         async Task ISwarmOperations.UnlockSwarmAsync(SwarmUnlockParameters parameters)
         {
-            var body = new JsonRequestContent<SwarmUnlockParameters>(parameters ?? throw new ArgumentNullException(nameof(parameters)), this._client.JsonSerializer);
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            var body = new JsonRequestContent<SwarmUnlockParameters>(parameters, this._client.JsonSerializer);
             await this._client.MakeRequestAsync(new []{ SwarmResponseHandler }, HttpMethod.Post, "swarm/unlock", null, body).ConfigureAwait(false);
         }
 
@@ -111,7 +115,8 @@ namespace Docker.DotNet
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
 
-            var query = new QueryString<ServiceUpdateParameters>(parameters ?? throw new ArgumentNullException(nameof(parameters)));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            var query = new QueryString<ServiceUpdateParameters>(parameters);
             var body = new JsonRequestContent<ServiceUpdateParameters>(parameters, this._client.JsonSerializer);
             var response = await this._client.MakeRequestAsync(new[] { SwarmResponseHandler }, HttpMethod.Post, $"services/{id}", query, RegistryAuthHeaders(parameters.RegistryAuth), body).ConfigureAwait(false);
             return this._client.JsonSerializer.DeserializeObject<ServiceUpdateResponse>(response.Body);
@@ -119,8 +124,11 @@ namespace Docker.DotNet
 
         async Task ISwarmOperations.UpdateSwarmAsync(SwarmUpdateParameters parameters)
         {
-            var query = new QueryString<SwarmUpdateParameters>(parameters ?? throw new ArgumentNullException(nameof(parameters)));
-            var body = new JsonRequestContent<Spec>(parameters.Spec ?? throw new ArgumentNullException(nameof(parameters.Spec)), this._client.JsonSerializer);
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            if (parameters.Spec == null) throw new ArgumentNullException(nameof(parameters));
+
+            var query = new QueryString<SwarmUpdateParameters>(parameters);
+            var body = new JsonRequestContent<Spec>(parameters.Spec, this._client.JsonSerializer);
             await this._client.MakeRequestAsync(new []{ SwarmResponseHandler }, HttpMethod.Post, "swarm/update", query, body).ConfigureAwait(false);
         }
 
