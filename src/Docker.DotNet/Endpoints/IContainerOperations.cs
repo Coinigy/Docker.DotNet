@@ -66,5 +66,7 @@ namespace Docker.DotNet
         Task<Stream> GetContainerStatsAsync(string id, ContainerStatsParameters parameters, CancellationToken cancellationToken);
 
         Task GetContainerStatsAsync(string id, ContainerStatsParameters parameters, CancellationToken cancellationToken, IProgress<JSONMessage> progress);
+
+        Task RenameContainerAsync(string id, ContainerRenameParameters parameters, CancellationToken cancellationToken);
     }
 }
