@@ -14,7 +14,7 @@ namespace Docker.DotNet
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore                
             };
         }
 

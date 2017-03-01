@@ -1,11 +1,13 @@
-﻿
+﻿using Newtonsoft.Json;
+
 namespace Docker.DotNet.Models
 {
     using System.Runtime.Serialization;
 
+    [JsonConverter(typeof(RestartPolicyKindConverter))]
     public enum RestartPolicyKind
     {
-        [EnumMember(Value = "")]
+        [EnumMember(Value = "")]        
         Undefined,
 
         [EnumMember(Value = "no")]

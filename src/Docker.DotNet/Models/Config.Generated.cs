@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Docker.DotNet.Models
 {
     [DataContract]
+    [JsonObject]
     public class Config // (container.Config)
     {
         [DataMember(Name = "Hostname", EmitDefaultValue = false)]
@@ -51,8 +53,8 @@ namespace Docker.DotNet.Models
         [DataMember(Name = "Image", EmitDefaultValue = false)]
         public string Image { get; set; }
 
-        [DataMember(Name = "Volumes", EmitDefaultValue = false)]
-        public IList<string> Volumes { get; set; }
+        [DataMember(Name = "Volumes", EmitDefaultValue = false)]        
+        public KeyValuePair<string,string> Volumes { get; set; }
 
         [DataMember(Name = "WorkingDir", EmitDefaultValue = false)]
         public string WorkingDir { get; set; }

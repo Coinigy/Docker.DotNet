@@ -89,11 +89,12 @@ namespace Docker.DotNet
                         var stream = new NamedPipeClientStream(serverName, pipeName);
                         var dockerStream = new DockerPipeStream(stream);
 
-#if NET45
                         await Task.Run(() => stream.Connect(timeout), cancellationToken);
-#else
-                        await stream.ConnectAsync(timeout, cancellationToken);
-#endif
+                        //#if NET45
+                        //                        await Task.Run(() => stream.Connect(timeout), cancellationToken);
+                        //#else
+                        //                        await stream.ConnectAsync(timeout, cancellationToken);
+                        //#endif
                         return dockerStream;
                     });
 
