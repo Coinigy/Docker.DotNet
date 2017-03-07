@@ -3,6 +3,7 @@ using System.Net;
 
 namespace Docker.DotNet
 {
+    [Serializable]
     public class DockerApiException : Exception
     {
         public HttpStatusCode StatusCode { get; private set; }
