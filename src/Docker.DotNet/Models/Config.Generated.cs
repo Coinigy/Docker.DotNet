@@ -53,8 +53,10 @@ namespace Docker.DotNet.Models
         [DataMember(Name = "Image", EmitDefaultValue = false)]
         public string Image { get; set; }
 
-        [DataMember(Name = "Volumes", EmitDefaultValue = false)]        
-        public KeyValuePair<string,string> Volumes { get; set; }
+        [DataMember(Name = "Volumes", EmitDefaultValue = false)]
+        //public KeyValuePair<string,string> Volumes { get; set; }
+        //public IList<string> Volumes { get; set; }
+        public IDictionary<string,dynamic> Volumes { get; set; }
 
         [DataMember(Name = "WorkingDir", EmitDefaultValue = false)]
         public string WorkingDir { get; set; }
