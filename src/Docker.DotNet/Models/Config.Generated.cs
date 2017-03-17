@@ -61,11 +61,11 @@ namespace Docker.DotNet.Models
 
         //i had trouble getting this type to work properly when creating a container with CreateContainerParameters
         //it would deserialize properly from the insepct response, and probably could be made to work
-        public KeyValuePair<string,string> Volumes { get; set; }
+        //public KeyValuePair<string,string> Volumes { get; set; }
 
         //this type worked properly to both deserialize the container inspect response and to serialize 
         //or otherwise work properly as part of CreateContainerParameters
-        //public IDictionary<string,dynamic> Volumes { get; set; }
+        public IDictionary<string,dynamic> Volumes { get; set; }
 
         [DataMember(Name = "WorkingDir", EmitDefaultValue = false)]
         public string WorkingDir { get; set; }
