@@ -54,9 +54,18 @@ namespace Docker.DotNet.Models
         public string Image { get; set; }
 
         [DataMember(Name = "Volumes", EmitDefaultValue = false)]
-        //public KeyValuePair<string,string> Volumes { get; set; }
+
+        //this type does not properly deserialize from the array of key:value
+        //pairs provided in the JSON result of a container inspect response
         //public IList<string> Volumes { get; set; }
-        public IDictionary<string,dynamic> Volumes { get; set; }
+
+        //i had trouble getting this type to work properly when creating a container with CreateContainerParameters
+        //it would deserialize properly from the insepct response, and probably could be made to work
+        public KeyValuePair<string,string> Volumes { get; set; }
+
+        //this type worked properly to both deserialize the container inspect response and to serialize 
+        //or otherwise work properly as part of CreateContainerParameters
+        //public IDictionary<string,dynamic> Volumes { get; set; }
 
         [DataMember(Name = "WorkingDir", EmitDefaultValue = false)]
         public string WorkingDir { get; set; }

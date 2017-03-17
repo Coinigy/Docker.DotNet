@@ -91,9 +91,9 @@ namespace Docker.DotNet.Models
         public string Image { get; set; }
 
         [DataMember(Name = "Volumes", EmitDefaultValue = false)]
-        //public KeyValuePair<string,string> Volumes { get; set; }
+
+        // see notes in Config.Generated.cs regarding Volumes property
         public IDictionary<string,dynamic> Volumes { get; set; }
-        //public IList<string> Volumes { get; set; }
 
         [DataMember(Name = "WorkingDir", EmitDefaultValue = false)]
         public string WorkingDir { get; set; }
