@@ -33,6 +33,8 @@ namespace Docker.DotNet
 
         public INetworkOperations Networks { get; }
 
+        public IVolumeOperations Volumes { get; }
+
         public ISwarmOperations Swarm { get; }
 
         private readonly HttpClient _client;
@@ -53,6 +55,7 @@ namespace Docker.DotNet
             Containers = new ContainerOperations(this);
             Miscellaneous = new MiscellaneousOperations(this);
             Networks = new NetworkOperations(this);
+            Volumes = new VolumeOperations(this);
             Swarm = new SwarmOperations(this);
 
             ManagedHandler handler;
