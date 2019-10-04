@@ -65,7 +65,7 @@ namespace Docker.DotNet
         [Obsolete("Use 'Task GetContainerStatsAsync(string id, ContainerStatsParameters parameters, CancellationToken cancellationToken, IProgress<JSONMessage> progress)'")]
         Task<Stream> GetContainerStatsAsync(string id, ContainerStatsParameters parameters, CancellationToken cancellationToken);
 
-        Task GetContainerStatsAsync(string id, ContainerStatsParameters parameters, CancellationToken cancellationToken, IProgress<JSONMessage> progress);
+        Task GetContainerStatsAsync(string id, ContainerStatsParameters parameters, CancellationToken cancellationToken, IProgress<ContainerStatsResponse> progress);
 
         Task RenameContainerAsync(string id, ContainerRenameParameters parameters, CancellationToken cancellationToken);
     }
